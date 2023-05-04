@@ -1,4 +1,5 @@
 function love.conf(t)
+  t.title = "TANSTAAFE'23"            -- The title of the window the game is in (string)
   t.identity = "TANSTAAFE"            -- The name of the save directory (string)
   t.version = "11.4"                  -- The LÖVE version this game was made for (string)
   t.console = true                    -- Attach a console (boolean, Windows only)
