@@ -7,6 +7,7 @@
     "${3rd}/love2d/library"
   ],
   "editor.suggest.showReferences": true,
-  "editor.codeLens": true
+  "editor.codeLens": true,
+  "diffEditor.diffAlgorithm": "advanced"
 }
 }
