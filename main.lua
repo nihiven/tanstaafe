@@ -30,31 +30,70 @@ Inspect = require('lib/inspect')
 --- TODO: Event System: Broadcast events to all objects that are listening for them. Use this for communication between components. [lib: home grown]
 --- Event System
 --- This will go into it's own file once it's working.
---- The Event System will be a global object that will allow objects to register for events.
---- Events will be broadcast to all objects that are listening for them.
---- Events will be used for communication between components.
+--- The Event System publishes events to subscribed objects.
+--- Objects subscribe by providing an event type and a callback function.
+-- EventType enum
+EventType = {
+  draw = 0,
+  update = 1
+}
 local ev = {}
 Events = {
+  __index = function(value, key)
+    if (Events[key]) then
+      return Events[key]
+    else
+      print("Events: Unknown key: ", key)
+    end
+  end,
   __tostring = function(obj)
     return Inspect(obj)
   end,
-  test = "jeb"
+  subscriptions = {},
+  subscribe = function(eventType, callback)
+    if not Events.subscriptions[eventType] then
+      Events.subscriptions[eventType] = {}
+    end
+    table.insert(Events.subscriptions[eventType], callback)
+  end,
+  publish = function(eventType, ...)
+    if not Events.subscriptions[eventType] then return end
+    for _, callback in ipairs(Events.subscriptions[eventType]) do
+      callback(...)
+    end
+  end,
+  unsubscribe = function(eventType, callback)
+    if not Events.subscriptions[eventType] then return end
+    for i, cb in ipairs(Events.subscriptions[eventType]) do
+      if cb == callback then
+        table.remove(Events.subscriptions[eventType], i)
+        return
+      end
+    end
+  end
 }
 setmetatable(ev, Events);
+local subtest = function()
+  print("Draw Event from a subscriber!")
+end
 
 function love.load()
-  print("love.load()", ev.test)
-  print(Inspect(ev))
-  print(ev)
+
 end
 
 function love.draw()
-  LG.print(ev.test, 10, 10)
+  ev.publish(EventType.draw)
 end
 
 function love.keypressed(k)
   print("Key: ", k)
   if k == 'escape' then love.event.quit() end
+  if k == 'j' then
+    ev.unsubscribe(EventType.draw, subtest)
+  end
+  if k == 's' then
+    ev.subscribe(EventType.draw, subtest)
+  end
 end
 
 -- HACK: Testing
