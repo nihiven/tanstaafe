@@ -6,8 +6,8 @@
   "Lua.workspace.library": [
     "${3rd}/love2d/library"
   ],
-  "editor.suggest.showReferences": true,
-  "editor.codeLens": true,
+  //"editor.suggest.showReferences": false,
+  "editor.codeLens": false,
   "diffEditor.diffAlgorithm": "advanced"
 }
 }
