@@ -21,6 +21,8 @@
 --- TODO: GUI system: Manage menus and other GUI elements. There will be game level and system level GUIs. [lib: ???]
 --- TODO: Logging? [lib: ???]
 
+LW = love.window
+LG = love.graphics
 -----------------------------------
 Inspect = require('lib/inspect')
 
@@ -44,6 +46,10 @@ function love.load()
   print("love.load()", ev.test)
   print(Inspect(ev))
   print(ev)
+end
+
+function love.draw()
+  LG.print(ev.test, 10, 10)
 end
 
 function love.keypressed(k)
