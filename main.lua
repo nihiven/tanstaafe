@@ -7,7 +7,7 @@
 ---------------------------------------------------------------------
 ---- Version History
 --- 0.1.0 - 'Genesis'
--- MUSIC: Miami Vice: The Complete Collection
+-- MUSIC: Duran Duran
 -- TODO: Build the first major components of the engine; Events, [v0.1.0]
 -- DONE: Inspector: A 3rd party component that will allow us to inspect tables at runtime. [v0.1.0]
 ---------------------------------------------------------------------
@@ -34,8 +34,10 @@ Inspect = require('lib/inspect')
 --- Objects subscribe by providing an event type and a callback function.
 -- EventType enum
 EventType = {
-  draw = 0,
-  update = 1
+  --- basic events
+  load = 0,
+  draw = 1,
+  update = 2
 }
 local ev = {}
 Events = {
@@ -73,16 +75,16 @@ Events = {
   end
 }
 setmetatable(ev, Events);
-local subtest = function()
-  print("Draw Event from a subscriber!")
+local subtest = function(data)
+  print(data.message)
 end
 
 function love.load()
-
+  ev.publish(EventType.load)
 end
 
 function love.draw()
-  ev.publish(EventType.draw)
+  ev.publish(EventType.draw, { message = "jb was here" })
 end
 
 function love.keypressed(k)
