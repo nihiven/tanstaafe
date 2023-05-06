@@ -1,7 +1,7 @@
 ---------------------------------------------------------------------
 ---- TANSTAAFE'23
 --- "There Ain't No Such Thing As A Free Engine 2023"
---- A Game Engine, powered by Love 2D (love2d.org) and lots of Lua.
+--- A Game Engine, powered by LÖVE and lots of Lua.
 --- (C) Justin "nihiven" Behanna
 --- https://nvn.io - jb@nvn.io
 ---------------------------------------------------------------------
