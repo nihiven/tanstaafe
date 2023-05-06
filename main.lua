@@ -7,7 +7,7 @@
 ---------------------------------------------------------------------
 ---- Version History
 --- 0.1.0 - 'Genesis'
--- MUSIC: Duran Duran
+-- MUSIC: Miami Vice, Duran Duran, FFVII
 -- DONE: Build the first major components of the engine; Events, [v0.1.0]
 -- DONE: Inspector: A 3rd party component that will allow us to inspect tables at runtime. [v0.1.0]
 -- DONE: Build test system [v0.1.0]
@@ -16,7 +16,7 @@
 
 --- TODO: v0.1.0
 -- TODO: Input System: Wrap Love2d's input system, implementing 'action' triggers, replacing direct key references. [lib: Baton?]
--- TODO: Game State System: Controls flow of ultiple game states, (menu/game/pause/etc). State switching will trigger events. [lib: ???]
+-- TODO: Game State System: Controls flow of multiple game states, (menu/game/pause/etc). State switching will trigger events. [lib: ???]
 -- TODO: Scene System: Screen manager that controls transition from one screen to another. [lib: hump?]
 -- TODO: Resource System: Load and reference resources such as sounds and images. [lib: home grown]
 -- TODO: Sound System: Not sure what this is or how this works, or even if we need it. [lib: ???]
@@ -33,24 +33,29 @@ Inspect = require('lib/inspect')
 
 ---sys--------------------------------
 Event = require('sys/event_system')
+Game = require('sys/game_system')
 
----tst--------------------------------
+---test-------------------------------
 Test = require('sys/test_system')
 
+
+---callbacks
 function love.load()
-  Event.publish(EventType.load)
+  Game:load()
+  Test:load()
+  Event:publish(EventType.load)
 end
 
 function love.draw()
-  Event.publish(EventType.draw, { message = "jb was here" })
+  Event:publish(EventType.draw)
 end
 
 function love.keypressed(k)
-  Event.publish(EventType.keypressed, { key = k })
+  Event:publish(EventType.keypressed, k)
 end
 
 function love.update(dt)
-  Event.publish(EventType.update, { dt = dt })
+  Event:publish(EventType.update, dt)
 end
 
 -- HACK: Testing
