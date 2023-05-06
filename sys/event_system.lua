@@ -5,13 +5,25 @@
 -- EventType enum
 EventType = {
   --- basic events
-  load = 0,
-  draw = 1,
-  update = 2,
-  keypressed = 3,
+  load = 0,       -- love load
+  draw = 1,       -- love draw
+  update = 2,     -- love update
+  keypressed = 3, -- any key pressed
+
+  --- game events
   state_change = 4, -- when the game state changes
+  action = 5,       -- input from baton
+}
+EventTypeText = {
+  [EventType.load] = 'load',
+  [EventType.draw] = 'draw',
+  [EventType.update] = 'update',
+  [EventType.keypressed] = 'keypressed',
+  [EventType.state_change] = 'state_change',
+  [EventType.action] = 'baton action',
 }
 local ev = {
+  debug = true,
   subscriptions = {}
 }
 function ev:subscribe(eventType, object, callback)
@@ -22,7 +34,12 @@ function ev:subscribe(eventType, object, callback)
 end
 
 function ev:publish(eventType, ...)
-  if not self.subscriptions[eventType] then return end
+  if not self.subscriptions[eventType] then
+    if self.debug then
+      print("No subscriptions for event type: ", EventTypeText[eventType])
+    end
+    return
+  end
   for _, data in ipairs(self.subscriptions[eventType]) do
     data.callback(data.object, ...)
   end
