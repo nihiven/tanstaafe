@@ -62,7 +62,7 @@ Test = require('sys/test_system')
 ---callbacks
 function love.load()
   -- do we hardcode the subscribe calls in the sys files then publish a load event
-  -- or do we do the subscribe calls in the the sys load() functions?
+  -- or do we run the subscribe calls in the the sys load() functions?
 
   -- setup system subscriptions
   Game:subscribeToEvents()
@@ -86,13 +86,3 @@ function love.update(dt)
   Input:publishActions(Game.state) -- publish baton actions
   Event:publish(EventType.update, Game.state, dt)
 end
-
--- HACK: Testing
--- BUG: Testing
--- INFO: Testing
--- MUSIC: Testing
--- NEW: Testing
--- NEXT: Testing
--- NOTE: Testing
--- TODO: Testing
--- ???: Testing
