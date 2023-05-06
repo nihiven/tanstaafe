@@ -14,21 +14,21 @@ local gm = {}
 gm.state = GameState.menu
 print(gm.state)
 
-function gm:load()
+function gm:load(state)
   Event:subscribe(EventType.draw, self, self.draw)
   Event:subscribe(EventType.update, self, self.update)
   Event:subscribe(EventType.keypressed, self, self.keypressed)
 end
 
-function gm:draw(...)
+function gm:draw(state)
 
 end
 
-function gm:update(dt)
+function gm:update(state, dt)
 
 end
 
-function gm:keypressed(k)
+function gm:keypressed(state, k)
   print("Game.keypressed: ", k)
   if k == 'escape' then LE.quit() end
   if k == ',' then

@@ -43,19 +43,19 @@ Test = require('sys/test_system')
 function love.load()
   Game:load()
   Test:load()
-  Event:publish(EventType.load)
+  Event:publish(EventType.load, Game.state)
 end
 
 function love.draw()
-  Event:publish(EventType.draw)
+  Event:publish(EventType.draw, Game.state)
 end
 
 function love.keypressed(k)
-  Event:publish(EventType.keypressed, k)
+  Event:publish(EventType.keypressed, Game.state, k)
 end
 
 function love.update(dt)
-  Event:publish(EventType.update, dt)
+  Event:publish(EventType.update, Game.state, dt)
 end
 
 -- HACK: Testing
