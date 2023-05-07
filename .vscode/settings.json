@@ -10,4 +10,5 @@
   "editor.codeLens": false,
   "diffEditor.diffAlgorithm": "advanced",
   "pixelbyte.love2d.path": "D:\\dev\\LOVE\\love.exe",
+  "pixelbyte.love2d.runOnSave": true
 }
