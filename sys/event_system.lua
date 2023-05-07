@@ -23,13 +23,14 @@ EventTypeText = {
   [EventType.action] = 'baton action',
 }
 local ev = {
+  _name = 'Event System',
   debug = true,
   subscriptions = {}
 }
 
 --- We need the object because we need to know the calling context when we execute the callback
---- functions are first class objects in Lua and are no 'owned' by their parent tables, which
---- means we can't deduce the calling context from the function itself.
+--- functions are first class citizens in Lua and are not 'owned' by their parent tables, which
+--- means we can't deduce the calling table/object/parent from the function itself.
 function ev:subscribe(eventType, object, callback)
   if not self.subscriptions[eventType] then
     self.subscriptions[eventType] = {}
@@ -61,6 +62,28 @@ function ev:unsubscribe(eventType, data)
     if sub.callback == data.callback and sub.object == data.object then
       table.remove(self.subscriptions[eventType], i)
       return
+    end
+  end
+end
+
+--- The AI thought this would be a good idea...
+--- this is a convenience function for creating a subscription that will only be called once.
+--- it is useful for things like loading assets, where you only want to load them once.
+--- the callback will be unsubscribed after it is called.
+function ev:subscribeOnce(eventType, object, callback)
+  local function once(...)
+    callback(object, ...)
+    self:unsubscribe(eventType, { object = object, callback = once })
+  end
+  self:subscribe(eventType, object, once)
+end
+
+--- print the current subscriptions
+function ev:printSubscriptions()
+  for eventType, subs in pairs(self.subscriptions) do
+    print("Event: ", EventTypeText[eventType])
+    for _, sub in ipairs(subs) do
+      print("  ", sub.object._name, sub.callback)
     end
   end
 end

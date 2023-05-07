@@ -11,6 +11,7 @@ Color = {
 }
 
 local gu = {
+  _name = "GUI System",
   debug = {
     messages = {}
   }

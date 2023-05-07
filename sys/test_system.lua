@@ -1,5 +1,6 @@
 --- Assume Event will always be available
 local test = {}
+test._name = "Test System"
 test.message = "we haven't run load() yet"
 
 function test:subscribeToEvents(state)
@@ -25,6 +26,9 @@ end
 function test:keypressed(state, k)
   if (k == 'i') then
     Input:publishActions()
+  end
+  if (k == 'p') then
+    Event:printSubscriptions()
   end
 end
 

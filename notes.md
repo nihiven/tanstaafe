@@ -1,4 +1,4 @@
-Input
+Input._controls
 {
   _activeDevice = "none",
   _controls = {

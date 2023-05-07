@@ -11,6 +11,8 @@ local inp = require('lib/baton').new({
   }
 })
 
+inp._name = 'Input System'
+
 --- read batons actions and publish them to an input event
 function inp:publishActions(state)
   Event:publish(EventType.action, state, self._controls)

@@ -7,7 +7,7 @@
 ---------------------------------------------------------------------
 ---- Version History
 --- 0.1.0 - 'Genesis'
--- MUSIC: Miami Vice, Duran Duran, FFVII
+-- MUSIC: Miami Vice, Duran Duran, FFVII, 90s hits
 -- DONE: Build the first major components of the engine; Events, [v0.1.0]
 -- DONE: Inspector: A 3rd party component that will allow us to inspect tables at runtime. [v0.1.0]
 -- DONE: Build test system [v0.1.0]
@@ -30,7 +30,9 @@ LG = love.graphics
 LW = love.window
 
 ---helpers----------------------------
-Help = {}
+Help = {
+  _name = "Helper Functions"
+}
 -- saves color to a table with named components
 function Help.saveColor()
   local r, g, b, a = LG.getColor()
@@ -47,12 +49,10 @@ function Help.setColor(color)
   LG.setColor(color.red, color.green, color.blue, color.alpha)
 end
 
----lib--------------------------------
+---lib/sys globals--------------------
 Inspect = require('lib/inspect')
-
----sys--------------------------------
-Input = require('sys/input_system')
 Event = require('sys/event_system')
+Input = require('sys/input_system')
 Game = require('sys/game_system')
 GUI = require('sys/gui_system')
 
