@@ -8,6 +8,6 @@
   ],
   //"editor.suggest.showReferences": false,
   "editor.codeLens": false,
-  "diffEditor.diffAlgorithm": "advanced"
-}
+  "diffEditor.diffAlgorithm": "advanced",
+  "pixelbyte.love2d.path": "D:\\dev\\LOVE\\love.exe",
 }
