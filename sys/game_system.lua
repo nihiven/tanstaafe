@@ -4,29 +4,31 @@
 
 --#region Global Types
 GameState = {
-  menu = 1,   -- main menu, not in game
-  game = 2,   -- in game, actively playing
-  paused = 3, -- in game, but paused
-  quit = 4    -- quitting, exit now
+  menu = 1,  -- main menu, not in game
+  game = 2,  -- in game, actively playing
+  pause = 3, -- in game, but paused
+  quit = 4   -- quitting, exit now
 }
 --- translates GameState to text
 GameStateText = {
   [GameState.menu] = 'menu',
   [GameState.game] = 'game',
-  [GameState.paused] = 'paused',
+  [GameState.pause] = 'paused',
   [GameState.quit] = 'quit'
 }
 --- maps GameState to a list of valid next states
 GameStateMap = {
   [GameState.menu] = { GameState.game, GameState.quit },
-  [GameState.game] = { GameState.paused },
-  [GameState.paused] = { GameState.Menu, GameState.game, GameState.quit }
+  [GameState.game] = { GameState.pause },
+  [GameState.pause] = { GameState.Menu, GameState.game, GameState.quit }
   -- dont need quit mapped as its a terminal state
 }
 -- endregion
 
+-- the big game system table
 local gm = {}
 gm._name = "Game System"
+gm._version = "0.1.0"
 gm.state = GameState.menu
 gm.actionMap = {
   [GameState.menu] = {
@@ -37,7 +39,7 @@ gm.actionMap = {
     ['action'] = function() print("game action") end,
     ['escape'] = function() print("game escape") end
   },
-  [GameState.paused] = {
+  [GameState.pause] = {
     ['action'] = function() print("paused action") end,
     ['escape'] = function() print("paused escape") end
   }
@@ -81,21 +83,7 @@ end
 
 --- replace this with action()
 function gm:keypressed(state, k)
-  if k == 'escape' then
-    if self.state == GameState.game then
-      self.state = GameState.paused
-    elseif self.state == GameState.paused then
-      self.state = GameState.game
-    elseif self.state == GameState.menu then
-      LE.quit()
-    end
-    Event:publish(EventType.stateChange, GameState.paused)
-  end
-  if k == ',' then
-    --- change state to 'next'
-    print("Game.state: ", self.state, GameStateText[self.state])
-    Event:publish(EventType.stateChange, GameState.game)
-  end
+
 end
 
 return gm

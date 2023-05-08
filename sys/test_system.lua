@@ -24,11 +24,18 @@ function test:update(state, dt)
 end
 
 function test:keypressed(state, k)
+  -- "trace" "debug" "info" "warn" "error" "fatal"
+  local level = { "trace", "debug", "info", "warn", "error", "fatal" }
+  local text = level[tonumber(k)]
+
   if (k == 'i') then
     Input:publishActions()
-  end
-  if (k == 'p') then
+  elseif (k == 'p') then
     Event:printSubscriptions()
+  elseif (text) then
+    Log.level = text
+  elseif (k == 'escape') then
+    LE.quit()
   end
 end
 
