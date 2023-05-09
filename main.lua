@@ -91,7 +91,7 @@ function love.keypressed(k)
 end
 
 function love.update(dt)
-  Input:update()                   -- update baton
-  Input:publishActions(Game.state) -- publish baton actions
+  Input:update() -- update baton
+  --Input:publishActions(Game.state) -- publish baton actions
   Event:publish(EventType.update, Game.state, dt)
 end

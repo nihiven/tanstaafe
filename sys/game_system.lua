@@ -30,18 +30,15 @@ local gm = {}
 gm._name = "Game System"
 gm._version = "0.1.0"
 gm.state = GameState.menu
-gm.actionMap = {
+gm.action_map = {
   [GameState.menu] = {
-    ['action'] = function() print("menu action") end,
-    ['escape'] = function() print("menu escape") end
+    [EventType.action] = function() print("menu action") end,
   },
   [GameState.game] = {
-    ['action'] = function() print("game action") end,
-    ['escape'] = function() print("game escape") end
+    [EventType.action] = function() print("game action") end,
   },
   [GameState.pause] = {
-    ['action'] = function() print("paused action") end,
-    ['escape'] = function() print("paused escape") end
+    [EventType.action] = function() print("paused action") end,
   }
 }
 
@@ -73,17 +70,20 @@ end
 
 --- map incoming actions to functions
 function gm:action(state, input)
-  for _, v in ipairs(input) do
-    if self.actionMap[state][v] then
-      print(state, v)
-      self.actionMap[state][v]()
-    end
+  if (self.action_map[state][EventType.action] and input["action"].pressed) then
+    self.action_map[state][EventType.action]()
   end
 end
 
 --- replace this with action()
 function gm:keypressed(state, k)
-
+  if (k == "h") then
+    print("hey")
+    pp(Input._controls)
+    for key, value in pairs(Input._controls) do
+      print(key, value)
+    end
+  end
 end
 
 return gm
