@@ -30,17 +30,6 @@ local gm = {}
 gm._name = "Game System"
 gm._version = "0.1.0"
 gm.state = GameState.menu
-gm.action_map = {
-  [GameState.menu] = {
-    [EventType.action] = function() print("menu action") end,
-  },
-  [GameState.game] = {
-    [EventType.action] = function() print("game action") end,
-  },
-  [GameState.pause] = {
-    [EventType.action] = function() print("paused action") end,
-  }
-}
 
 function gm:subscribeToEvents(state)
   Event:subscribe(EventType.load, self, self.load)
@@ -48,7 +37,6 @@ function gm:subscribeToEvents(state)
   Event:subscribe(EventType.update, self, self.update)
   Event:subscribe(EventType.keypressed, self, self.keypressed)
   Event:subscribe(EventType.state_change, self, self.stateChange)
-  Event:subscribe(EventType.action, self, self.action)
 end
 
 function gm:load(state)
@@ -59,8 +47,8 @@ function gm:draw(state)
 
 end
 
-function gm:update(state, dt)
-
+function gm:update(state, dt, controls)
+  --- check controls here!
 end
 
 function gm:stateChange(state, new_state)
@@ -69,10 +57,8 @@ function gm:stateChange(state, new_state)
 end
 
 --- map incoming actions to functions
-function gm:action(state, input)
-  if (self.action_map[state][EventType.action] and input["action"].pressed) then
-    self.action_map[state][EventType.action]()
-  end
+function gm:input(state, controls)
+  print(state, controls)
 end
 
 --- replace this with action()

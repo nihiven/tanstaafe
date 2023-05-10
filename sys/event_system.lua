@@ -12,7 +12,7 @@ EventType = {
 
   --- game events
   state_change = 4, -- when the game state changes
-  action = 5,       -- input from baton
+  input = 5,        -- input from baton
 }
 EventTypeText = {
   [EventType.load] = 'love.load',
@@ -20,7 +20,7 @@ EventTypeText = {
   [EventType.update] = 'love.update',
   [EventType.keypressed] = 'key pressed',
   [EventType.state_change] = 'gamestate change',
-  [EventType.action] = 'baton action',
+  [EventType.input] = 'baton input',
 }
 local ev = {
   _name = 'Event System',
@@ -32,6 +32,11 @@ local ev = {
 --- functions are first class citizens in Lua and are not 'owned' by their parent tables, which
 --- means we can't deduce the calling table/object/parent from the function itself.
 function ev:subscribe(eventType, object, callback)
+  if (eventType == nil) then
+    Log.fatal("Event type cannot be nil")
+    return
+  end
+
   if not self.subscriptions[eventType] then
     self.subscriptions[eventType] = {}
   end

@@ -92,6 +92,5 @@ end
 
 function love.update(dt)
   Input:update() -- update baton
-  --Input:publishActions(Game.state) -- publish baton actions
-  Event:publish(EventType.update, Game.state, dt)
+  Event:publish(EventType.update, Game.state, dt, Input._controls)
 end
