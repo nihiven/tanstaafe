@@ -2,7 +2,7 @@
 local inp = require('lib/baton').new({
   controls = {
     action = { 'key:return', 'mouse:1' },
-    escape = { 'key:escape' },
+    quit = { 'key:escape' },
     left = { 'key:left', 'key:a', 'axis:leftx-', 'button:dpleft' },
     right = { 'key:right', 'key:d', 'axis:leftx+', 'button:dpright' },
     up = { 'key:up', 'key:w', 'axis:lefty-', 'button:dpup' },

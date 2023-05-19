@@ -19,8 +19,10 @@ function test:draw(state)
 
 end
 
-function test:update(state, dt)
-
+function test:update(state, dt, controls)
+  if (controls['quit'].pressed) then
+    LE.quit()
+  end
 end
 
 function test:keypressed(state, k)
@@ -32,10 +34,10 @@ function test:keypressed(state, k)
     Input:publishActions()
   elseif (k == 'p') then
     Event:printSubscriptions()
+  elseif (k == 'u') then
+    print(Game:stateText(76))
   elseif (text) then
     Log.level = text
-  elseif (k == 'escape') then
-    LE.quit()
   end
 end
 
