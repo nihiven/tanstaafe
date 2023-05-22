@@ -12,7 +12,7 @@ end
 
 function test:load(state)
   self.message = "we ran load() at least once"
-  print("test.load: ", state)
+  print("test.load: ", Game:stateText())
 end
 
 function test:draw(state)
@@ -20,9 +20,7 @@ function test:draw(state)
 end
 
 function test:update(state, dt, controls)
-  if (controls['quit'].pressed) then
-    LE.quit()
-  end
+
 end
 
 function test:keypressed(state, k)
@@ -35,7 +33,7 @@ function test:keypressed(state, k)
   elseif (k == 'p') then
     Event:printSubscriptions()
   elseif (k == 'u') then
-    print(Game:stateText(76))
+    Log.info(Game:stateText())
   elseif (text) then
     Log.level = text
   end

@@ -32,14 +32,8 @@ gm._version = "0.1.0"
 gm.state = GameState.menu
 
 -- return a given GameState as a string from GameStateText
-function gm:stateText(state)
-  -- check for valid state.
-  -- TODO: this should be a debug only check?
-  if (not GameStateText[state]) then
-    error("invalid state: " .. tostring(state), 2)
-    return "invalid state"
-  end
-  return GameStateText[state]
+function gm:stateText()
+  return GameStateText[self.state]
 end
 
 function gm:subscribeToEvents(state)
@@ -51,7 +45,7 @@ function gm:subscribeToEvents(state)
 end
 
 function gm:load(state)
-  print("Game.load: ", state)
+  print("Game.load: ", self:stateText(state))
 end
 
 function gm:draw(state)
@@ -60,6 +54,10 @@ end
 
 function gm:update(state, dt, controls)
   --- check controls here!
+  if (controls['quit'].pressed) then
+    pp(controls)
+    Event:publish(EventType.quit)
+  end
 end
 
 -- TODO: finish this function (gm:stateChange)

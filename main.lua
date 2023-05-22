@@ -26,6 +26,8 @@
 -- TODO: Resource System: Load and reference resources such as sounds and images. [lib: home grown]
 -- TODO: Sound System: Not sure what this is or how this works, or even if we need it. [lib: ???]
 -- TODO: Logging? [lib: log]
+--- TODO: v0.3.0
+-- TODO: add parameter checks for all functions?
 
 ---luv--------------------------------
 LE = love.event
@@ -68,7 +70,6 @@ Log.info("TANSTAAFE'23 - " .. Game._version)
 ---callbacks
 function love.load()
   Log.level = "info"
-  Log.trace("love.load()")
   -- do we hardcode the subscribe calls in the sys files then publish a load event
   -- or do we run the subscribe calls in the the sys load() functions?
 
@@ -79,7 +80,6 @@ function love.load()
 
   -- publish load event
   Event:publish(EventType.load, Game.state)
-  Log.trace("love.load() end")
 end
 
 function love.draw()

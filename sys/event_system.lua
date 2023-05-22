@@ -13,6 +13,7 @@ EventType = {
   --- game events
   state_change = 4, -- when the game state changes
   input = 5,        -- input from baton
+  quit = 6,         -- quit the game
 }
 EventTypeText = {
   [EventType.load] = 'love.load',
@@ -21,6 +22,7 @@ EventTypeText = {
   [EventType.keypressed] = 'key pressed',
   [EventType.state_change] = 'gamestate change',
   [EventType.input] = 'baton input',
+  [EventType.quit] = 'quit signal',
 }
 local ev = {
   _name = 'Event System',

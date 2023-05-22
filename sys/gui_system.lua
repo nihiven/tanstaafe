@@ -33,12 +33,11 @@ function gu:subscribeToEvents(state)
   Event:subscribe(EventType.load, self, self.load)
   Event:subscribe(EventType.draw, self, self.draw)
   Event:subscribe(EventType.update, self, self.update)
-  Event:subscribe(EventType.keypressed, self, self.keypressed)
   Event:subscribe(EventType.state_change, self, self.stateChange)
 end
 
 function gu:load(state)
-  print("GUI.load: ", state)
+  print("GUI.load: ", Game:stateText())
 end
 
 function gu:draw(state)
@@ -46,8 +45,9 @@ function gu:draw(state)
   -- save color so we can restore it
   local saved_color = Help.saveColor()
   Help.setColor(Color.pink)
-  self:drawInfo(state)
+  self:drawInfo(Game:stateText())
 
+  -- mapped functions are per state
   if (self.state_map[state]) then
     self.state_map[state](self, state)
   end
@@ -64,12 +64,8 @@ function gu:stateChange(state, new_state)
   print("GUI.state_change: ", state, "=>", new_state)
 end
 
-function gu:keypressed(state, k)
-
-end
-
 function gu:drawInfo(state)
-  LG.print("Game State: " .. tostring(GameStateText[state]), 10, 10)
+  LG.print("Game State: " .. Game:stateText(), 10, 10)
   LG.print("FPS: " .. tostring(love.timer.getFPS()), 10, 30)
 end
 
