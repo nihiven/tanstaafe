@@ -45,7 +45,7 @@ function gm:subscribeToEvents(state)
 end
 
 function gm:load(state)
-  print("Game.load: ", self:stateText(state))
+  print("Game.load: ", self:stateText())
 end
 
 function gm:draw(state)
