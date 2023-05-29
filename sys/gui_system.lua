@@ -16,17 +16,6 @@ local gu = {
     messages = {}
   },
   state_map = {},
-  menu_map = {
-    [GameState.menu] = {
-      { text = "Start", state = GameState.game },
-      { text = "Quit",  state = GameState.quit }
-    },
-    [GameState.pause] = {
-      { text = "Resume",    state = GameState.game },
-      { text = "Main Menu", state = GameState.menu },
-      { text = "Quit",      state = GameState.quit }
-    }
-  }
 }
 
 function gu:subscribeToEvents(state)
@@ -98,5 +87,40 @@ gu.state_map[GameState.game] = gu.drawGame
 gu.state_map[GameState.menu] = gu.drawMenu
 gu.state_map[GameState.pause] = gu.drawPause
 gu.state_map[GameState.quit] = gu.drawQuit
+
+--- menu functions
+function gu:mnuMenuStart()
+  print("Menu Start!")
+end
+
+function gu:mnuMenuQuit()
+  print("Menu Quit!")
+end
+
+function gu:mnuPauseResume()
+  print("Pause Resume!")
+end
+
+function gu:mnuPauseMainMenu()
+  print("Pause Main Menu!")
+end
+
+function gu:mnuPauseQuit()
+  print("Pause Quit!")
+end
+
+--- map the menu items
+ gu.menu_map = {
+    [GameState.menu] = {
+      { text = "Start", state = GameState.game, callback = gu.mnuMenuStart },
+      { text = "Quit",  state = GameState.quit, callback = gu.mnuMenuQuit }
+    },
+    [GameState.pause] = {
+      { text = "Resume",    state = GameState.game, callback = gu.mnuPauseResume },
+      { text = "Main Menu", state = GameState.menu, callback = gu.mnuPauseMainMenu },
+      { text = "Quit",      state = GameState.quit, callback = gu.mnuPauseQuit }
+    }
+  }
+}
 
 return gu
